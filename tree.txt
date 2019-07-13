@@ -1,0 +1,56 @@
+#include<stdio.h>
+struct node
+{
+    int data;
+    struct node* left;
+    struct node* right;
+};
+void inorder(struct node* root){
+    if(root == NULL) return;
+    inorder(root->left);
+    printf("%d ->", root->data);
+    inorder(root->right);
+}
+void preorder(struct node* root){
+    if(root == NULL) return;
+    printf("%d ->", root->data);
+    preorder(root->left);
+    preorder(root->right);
+}
+void postorder(struct node* root) {
+    if(root == NULL) return;
+    postorder(root->left);
+    postorder(root->right);
+    printf("%d ->", root->data);
+}
+struct node* createElement(int value)
+{
+    struct node* newNode=malloc(sizeof(struct node));
+    newNode->data=value;
+    newNode->left=NULL;
+    newNode->right=NULL;
+}
+struct node* insertLeft(struct node *root,int value)
+{
+    root->left=createElement(value);
+}
+struct node* insertRight(struct node *root,int value)
+{
+    root->right=createElement(value);
+}
+void main()
+{
+    struct node *root=createElement(1);
+    insertLeft(root,2);
+    insertRight(root,3);
+    insertLeft(root->left,4);
+    insertRight(root->left,5);
+    printf("%d->>%d->>%d->>%d->>%d",root->data,root->left->data,root->right->data,root->left->left->data,root->left->right->data);
+    printf("\nInorder Traversal");
+    inorder(root);
+    printf("\nPreorder Traversal");
+    preorder(root);
+    printf("\npostorder Traversal");
+    postorder(root);
+    
+}
